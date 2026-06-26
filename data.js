@@ -7,7 +7,7 @@ const LENSES = [
   { n: 2, name: "AI leverage",       color: "217,119,6",   ask: "Why is AI better than search, rules, templates, or manual work here?",
     detail: "AI shines at synthesis, generation, personalization, retrieval, and reasoning over messy context." },
   { n: 3, name: "Human-AI workflow", color: "124,58,237",  ask: "How does the user guide, review, edit, approve, or override the AI?",
-    detail: "Think drafts, suggestions, copilots, review queues — not just a chatbot." },
+    detail: "Think drafts, suggestions, copilots, review queues, not just a chatbot." },
   { n: 4, name: "Model behavior",    color: "13,148,136",  ask: "Where will the model be uncertain, wrong, slow, biased, or incomplete?",
     detail: "Hallucinations, stale data, brittleness on edge cases, latency and cost limits." },
   { n: 5, name: "Quality / evals",   color: "22,163,74",   ask: "What does “good” mean for this task, and how will you measure it?",
@@ -24,7 +24,7 @@ const PHRASES = [
   "I'd separate product success metrics from AI quality metrics.",
   "I'd launch this as a copilot before making it an autopilot.",
   "The model doesn't need to be perfect if the workflow is designed around review, correction, and safe failure.",
-  "The product question isn't just whether the model can do it — it's whether users can trust, verify, and recover from what it does.",
+  "The product question isn't just whether the model can do it. It's whether users can trust, verify, and recover from what it does.",
 ];
 
 // §8 — Answer Builder scenarios. Steps reference a lens number; name + color
@@ -36,9 +36,9 @@ const SCENARIOS = [
     prompt: "Design an AI assistant for customer support agents handling refund tickets.",
     steps: [
       { lens: 1, q: "Who's the user, and what's the painful job?",
-        answer: "I'll focus on support agents handling refund tickets — reading customer history, finding the right policy, and drafting a reply without making wrong promises.",
+        answer: "I'll focus on support agents handling refund tickets: reading customer history, finding the right policy, and drafting a reply without making wrong promises.",
         choices: [
-          { t: "Support agents handling refund tickets — reading history, finding policy, and drafting a reply without wrong promises.", strong: true,
+          { t: "Support agents handling refund tickets: reading history, finding policy, and drafting a reply without wrong promises.", strong: true,
             fb: "A specific user, context, and struggle. That's where every strong answer starts." },
           { t: "Everyone who contacts customer support.", strong: false,
             fb: "“Everyone” is a non-answer. Name a specific user and the painful job they're stuck on." },
@@ -46,9 +46,9 @@ const SCENARIOS = [
             fb: "Tempting, but the user of this tool is the agent. Pick the user who actually operates the product." },
         ]},
       { lens: 2, q: "Why is AI better here than a non-AI alternative?",
-        answer: "AI earns its place by synthesizing messy ticket history and drafting a grounded first reply — something rules or search alone can't do well.",
+        answer: "AI earns its place by synthesizing messy ticket history and drafting a grounded first reply, which rules or search alone can't do well.",
         choices: [
-          { t: "It synthesizes messy ticket history and drafts a grounded reply — work rules and search can't do well.", strong: true,
+          { t: "It synthesizes messy ticket history and drafts a grounded reply, which rules and search can't do well.", strong: true,
             fb: "You tied AI to a job it's uniquely good at: synthesis over messy context. That's leverage, not novelty." },
           { t: "It makes the product feel modern and AI-powered.", strong: false,
             fb: "That's novelty, not leverage. Name the specific capability AI adds that the alternatives can't." },
@@ -56,7 +56,7 @@ const SCENARIOS = [
             fb: "That swaps the user and reaches for “chatbot” by reflex. Stay on the agent's job." },
         ]},
       { lens: 3, q: "How does the agent actually work with the AI?",
-        answer: "The AI drafts and cites the relevant policy; the agent reviews, edits, and approves before anything is sent — a copilot, not an autopilot.",
+        answer: "The AI drafts and cites the relevant policy; the agent reviews, edits, and approves before anything is sent. It's a copilot, not an autopilot.",
         choices: [
           { t: "AI drafts and cites policy; the agent reviews, edits, and approves before anything sends.", strong: true,
             fb: "Copilot, not autopilot. That's how you ship value before the model is perfect." },
@@ -66,9 +66,9 @@ const SCENARIOS = [
             fb: "Open chat is a weak default. A guided draft → review → approve flow beats free-form chat here." },
         ]},
       { lens: 4, q: "Where will the model fail?",
-        answer: "The highest-risk failure is a confident policy claim that isn't grounded in our docs — so I'd watch for hallucination, stale data, and brittle edge cases.",
+        answer: "The highest-risk failure is a confident policy claim that isn't grounded in our docs, so I'd watch for hallucination, stale data, and brittle edge cases.",
         choices: [
-          { t: "A confident policy claim that isn't grounded in our docs — plus stale data and edge-case tickets.", strong: true,
+          { t: "A confident policy claim that isn't grounded in our docs, plus stale data and edge-case tickets.", strong: true,
             fb: "You named the specific, highest-risk failure, not just “hallucination is a risk.”" },
           { t: "Modern models are reliable enough; failure isn't a real concern.", strong: false,
             fb: "Overconfidence is the trap. Interviewers want to hear exactly how and where it breaks." },
@@ -76,17 +76,17 @@ const SCENARIOS = [
             fb: "Latency is real but minor here. The dangerous failure is a wrong, confident answer." },
         ]},
       { lens: 5, q: "What does “good” mean, and how do you measure it?",
-        answer: "I'd separate product success — time saved and resolution rate — from AI quality: groundedness, agent acceptance rate, and edit distance from draft to sent reply.",
+        answer: "I'd separate product success (time saved and resolution rate) from AI quality: groundedness, agent acceptance rate, and edit distance from draft to sent reply.",
         choices: [
           { t: "Separate product metrics (time saved, resolution rate) from AI quality (groundedness, acceptance rate, edit distance).", strong: true,
             fb: "Splitting product success from AI quality is the move that sounds AI-native." },
           { t: "Track engagement and clicks on the AI panel.", strong: false,
             fb: "Engagement doesn't tell you if the output was good. AI products need quality measures too." },
           { t: "Just measure overall accuracy.", strong: false,
-            fb: "“Accuracy” alone is vague. Which dimension — groundedness? acceptance? edit distance?" },
+            fb: "“Accuracy” alone is vague. Which dimension: groundedness? acceptance? edit distance?" },
         ]},
       { lens: 6, q: "How does the product fail safely?",
-        answer: "It fails safely through source citations, clear “this is a draft” UI, and routing high-risk cases — large refunds, account security, angry customers — to a human.",
+        answer: "It fails safely through source citations, clear “this is a draft” UI, and routing high-risk cases (large refunds, account security, angry customers) to a human.",
         choices: [
           { t: "Citations, a clear “draft” UI, and routing high-risk cases (big refunds, angry customers) to a human.", strong: true,
             fb: "Concrete safeguards mapped to risk. That's failing safely without breaking trust." },
@@ -110,20 +110,20 @@ const SCENARIOS = [
   {
     id: "duolingo",
     label: "Duolingo tutor",
-    prompt: "Where should Duolingo use AI — and where should it avoid AI?",
+    prompt: "Where should Duolingo use AI, and where should it avoid AI?",
     steps: [
       { lens: 1, q: "What is the learner's real job?",
-        answer: "The learner's real job isn't getting answers — it's building durable language ability through practice, feedback, and repetition.",
+        answer: "The learner's real job isn't getting answers. It's building durable language ability through practice, feedback, and repetition.",
         choices: [
-          { t: "Building durable language ability through practice, feedback, and repetition — not getting quick answers.", strong: true,
-            fb: "You anchored on the real outcome — durable ability — not surface completion." },
+          { t: "Building durable language ability through practice, feedback, and repetition, not getting quick answers.", strong: true,
+            fb: "You anchored on the real outcome, durable ability, not surface completion." },
           { t: "Finishing lessons and keeping their streak alive.", strong: false,
             fb: "That's a proxy metric, not the job. Completion can rise while learning falls." },
           { t: "Getting instant translations whenever they're stuck.", strong: false,
-            fb: "That's the trap — answers on demand can weaken the very learning you want." },
+            fb: "That's the trap: answers on demand can weaken the very learning you want." },
         ]},
       { lens: 2, q: "Where does AI genuinely help learning?",
-        answer: "AI helps most where it improves practice: adaptive conversation, personalized correction of repeated mistakes, and level-matched exercises — not by handing over answers.",
+        answer: "AI helps most where it improves practice: adaptive conversation, personalized correction of repeated mistakes, and level-matched exercises, not by handing over answers.",
         choices: [
           { t: "Adaptive conversation practice, personalized correction of repeated mistakes, and level-matched exercises.", strong: true,
             fb: "Three concrete leverage points tied to learning, not novelty." },
@@ -133,7 +133,7 @@ const SCENARIOS = [
             fb: "Doing the work for them removes the productive struggle that builds skill." },
         ]},
       { lens: 3, q: "How does the learner work with the AI?",
-        answer: "I'd build an AI roleplay mode — the learner picks a real-life scenario, the AI plays the other person, and gives short, specific feedback after the attempt, not during every sentence.",
+        answer: "I'd build an AI roleplay mode: the learner picks a real-life scenario, the AI plays the other person, and gives short, specific feedback after the attempt, not during every sentence.",
         choices: [
           { t: "AI roleplays a real-life scenario; the learner responds, and gets short feedback after the attempt.", strong: true,
             fb: "Feedback after the attempt protects the struggle while still coaching." },
@@ -143,11 +143,11 @@ const SCENARIOS = [
             fb: "Copying isn't practicing. The learner has to produce the language themselves." },
         ]},
       { lens: 4, q: "Where will the model fail learners?",
-        answer: "The risky failure is confident feedback when the model is actually unsure — including treating one acceptable phrasing as the only correct answer.",
+        answer: "The risky failure is confident feedback when the model is actually unsure, including treating one acceptable phrasing as the only correct answer.",
         choices: [
           { t: "Confident corrections when it's unsure, and treating one valid phrasing as the only correct answer.", strong: true,
             fb: "You spotted the teaching-specific failure: false certainty harms learners." },
-          { t: "It won't fail much — language is well within model ability.", strong: false,
+          { t: "It won't fail much. Language is well within model ability.", strong: false,
             fb: "Overconfidence again. Language has many valid answers; the model can be wrongly rigid." },
           { t: "It might occasionally be slow to respond.", strong: false,
             fb: "Minor here. The real risk is wrong feedback delivered with confidence." },
@@ -156,7 +156,7 @@ const SCENARIOS = [
         answer: "I'd measure learning, not just engagement: improvement on repeated-mistake areas, week-later retention, learner confidence, and human-reviewed feedback quality.",
         choices: [
           { t: "Improvement on weak areas, week-later retention, confidence, and human-reviewed feedback quality.", strong: true,
-            fb: "Learning outcomes over engagement — exactly the AI-quality split." },
+            fb: "Learning outcomes over engagement, exactly the AI-quality split." },
           { t: "Daily active users and lesson completion rate.", strong: false,
             fb: "Engagement can rise while learning falls. Measure the learning, too." },
           { t: "How many messages the learner exchanges with the AI.", strong: false,
@@ -188,19 +188,19 @@ const SCENARIOS = [
 
 // §7 — practice questions
 const LEVELS = [
-  { title: "Level 1 — AI feature sense", qs: [
+  { title: "Level 1: AI feature sense", qs: [
     "How would you add an AI assistant to Google Calendar?",
     "Design an AI feature for Spotify that helps users discover music.",
     "How would you improve Duolingo using generative AI?",
     "Build an AI copilot for customer support agents.",
   ]},
-  { title: "Level 2 — AI-native product judgment", qs: [
+  { title: "Level 2: AI-native product judgment", qs: [
     "When should a product not use AI?",
     "How would you decide whether to use an LLM or a rules-based system?",
     "How would you launch an AI feature when the model is only right 80% of the time?",
     "How would you design trust into an AI writing assistant?",
   ]},
-  { title: "Level 3 — evals, agents, and systems", qs: [
+  { title: "Level 3: evals, agents, and systems", qs: [
     "How would you evaluate an AI search product?",
     "Design an AI agent that books travel for busy professionals.",
     "What metrics would you track for an AI coding assistant?",
